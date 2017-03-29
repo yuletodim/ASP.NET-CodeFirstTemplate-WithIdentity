@@ -59,13 +59,7 @@
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\ParticipationStrategy.cs" />
-    <Compile Include="Models\Contest.cs" />
-    <Compile Include="Models\DeadlineStrategy.cs" />
-    <Compile Include="Models\Picture.cs" />
-    <Compile Include="Models\RewardStrategy.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\VotingStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\DbRepository.cs" />
     <Compile Include="Repositories\IDbRepository.cs" />

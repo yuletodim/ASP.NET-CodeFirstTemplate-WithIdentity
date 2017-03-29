@@ -17,7 +17,5 @@
         {
             return new ApplicationDbContext();
         }
-
-        public virtual IDbSet<Contest> Contests { get; set; }
     }
 }

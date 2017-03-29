@@ -12,6 +12,7 @@ using CodeFirstTemplate.DATA.Models;
 using CodeFirstTemplate.DATA.Repositories;
 using CodeFirstTemplate.Services.Interfaces;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CodeFirstTemplate.Web.App_Start
 {
@@ -47,17 +48,23 @@ namespace CodeFirstTemplate.Web.App_Start
 
         private static void RegisterServices(ContainerBuilder builder)
         {
+            // DbContext
             builder.Register(x => new ApplicationDbContext())
                 .As<DbContext>()
                 .InstancePerRequest();
 
+            // User Manager
+            builder.RegisterType<UserStore<User>>()
+                .As<IUserStore<User>>();
             builder.RegisterType<UserManager<User>>();
 
+            // Repositories
             builder.RegisterGeneric(typeof(DbRepository<,>))
                 .As(typeof(IDbRepository<,>))
                 .InstancePerRequest();
 
-            var servicesAssembly = Assembly.GetAssembly(typeof(IUsersService));
+            // Services
+            var servicesAssembly = Assembly.GetAssembly(typeof(IUsersServices));
             builder.RegisterAssemblyTypes(servicesAssembly).AsImplementedInterfaces();
         }
     }

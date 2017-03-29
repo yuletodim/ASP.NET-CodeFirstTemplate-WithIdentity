@@ -1,35 +1,25 @@
 ﻿namespace CodeFirstTemplate.Web.Controllers
 {
+    using System.Collections.Generic;
     using System.Web.Mvc;
     using CodeFirstTemplate.Services.Interfaces;
+    using Models;
 
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private readonly IContestsService contestsService; 
+        private readonly IUsersServices usersServices;
 
-        public HomeController(IContestsService contestsService)
+        public HomeController(IUsersServices usersServices)
         {
-            this.contestsService = contestsService;
+            this.usersServices = usersServices;
         }
 
         public ActionResult Index()
         {
-            var contests = this.contestsService.GetAll();
-            return View(contests);
+            var users = this.usersServices.GetAll();
+            var usersViewModel = this.Mapper.Map<List<UserViewModel>>(users);
+            return View(usersViewModel);
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }

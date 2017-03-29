@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CodeFirstTemplate.Services.Models.ContestModel>
+﻿@model IEnumerable<CodeFirstTemplate.Web.Models.UserViewModel>
 
 @{
     ViewBag.Title = "Home Page";
@@ -10,6 +10,6 @@
 
         @foreach (var item in Model)
         {
-            @Html.Partial("_ContestPartial", item)
+            @Html.Partial("_UserPartial", item)
         }
 </div>

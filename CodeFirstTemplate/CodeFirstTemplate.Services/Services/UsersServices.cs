@@ -1,13 +1,16 @@
 ﻿namespace CodeFirstTemplate.Services.Services
 {
-    using System;
     using System.Linq;
+    using System.Collections.Generic;
+    using AutoMapper.QueryableExtensions;
     using CodeFirstTemplate.DATA.Models;
     using CodeFirstTemplate.Services.Interfaces;
     using DATA.Repositories;
+    using Mappings;
     using Microsoft.AspNet.Identity;
+    using Models;
 
-    public class UsersServices : IUsersService
+    public class UsersServices : BaseServices, IUsersServices
     {
         private readonly UserManager<User> userManager;
         private readonly IDbRepository<User, string> usersRepository;
@@ -18,14 +21,22 @@
             this.usersRepository = usersRepository;
         }
 
-        public IQueryable<User> GetAll()
+        public IEnumerable<UserModel> GetAll()
         {
-            throw new NotImplementedException();
+            var users = this.usersRepository
+                .GetAll()
+                .ProjectTo<UserModel>(AutoMapperConfig.Configuration)
+                .ToList();
+
+            return users;
         }
 
-        public User GetById(string id)
+        public UserModel GetById(string id)
         {
-            throw new NotImplementedException();
+            var user = this.usersRepository.Find(id);
+            var userModel = this.Mapper.Map<UserModel>(user);
+
+            return userModel;
         }
     }
 }

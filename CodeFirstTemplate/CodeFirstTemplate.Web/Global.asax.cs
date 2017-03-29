@@ -27,7 +27,21 @@ namespace CodeFirstTemplate.Web
             AutofacConfig.RegisterAutofac();
 
             var autoMapperConfig = new AutoMapperConfig();
-            autoMapperConfig.Execute(Assembly.GetAssembly(typeof(ContestModel)));
+            autoMapperConfig.Execute(Assembly.GetAssembly(typeof(UserModel)), Assembly.GetExecutingAssembly());
+        }
+
+        // Global Error Handling
+        protected void Application_Error(object sender, EventArgs e)
+        {
+#if !DEBUG
+            var exception = this.Server.GetLastError() as HttpException;
+
+            if (exception != null)
+            {
+                var httpCode = exception.GetHttpCode();
+                this.Response.Redirect($"/Errors?httpErrorCode={httpCode}");
+            }
+#endif
         }
     }
 }
