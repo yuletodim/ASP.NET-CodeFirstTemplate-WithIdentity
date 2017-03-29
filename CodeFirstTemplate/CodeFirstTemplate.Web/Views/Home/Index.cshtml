@@ -1,0 +1,15 @@
+﻿@model IEnumerable<CodeFirstTemplate.Services.Models.ContestModel>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+
+        <h2>Last Contests</h2>
+
+        @foreach (var item in Model)
+        {
+            @Html.Partial("_ContestPartial", item)
+        }
+</div>
